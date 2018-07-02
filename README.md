@@ -1222,6 +1222,115 @@ const hasAge = Boolean(age);
 const hasAge = !!age;
 ```
 
+18 存取器
+
+18.1 属性的存取函数不是必须的；如果你需要存取函数时使用 `getVal()` 和 `setVal('hello')`
+
+```javascript
+// bad
+dragon.age();
+
+// good
+dragon.getAge();
+
+// bad
+dragon.age(25);
+
+// good
+dragon.setAge(25);
+```
+
+18.2 如果属性是布尔值，使用 `isVal()` 或 `hasVal()`
+
+```javascript
+// bad
+if (!dragon.age()) {
+  return false;
+}
+
+// good
+if (!dragon.hasAge()) {
+  return false;
+}
+```
+
+18.3 创建 `get()` 和 `set()` 函数是可以的，但要保持一致
+
+```javascript
+class Jedi {
+  constructor(options = {}) {
+    const lightsaber = options.lightsaber || 'blue';
+    this.set('lightsaber', lightsaber);
+  }
+
+  set(key, val) {
+    this[key] = val;
+  }
+
+  get(key) {
+    return this[key];
+  }
+}
+```
+
+19.jQuery
+
+19.1 使用 `$` 作为存储 jQuery 对象的变量名前缀
+
+```javascript
+// bad
+const sidebar = $('.sidebar');
+
+// good
+const $sidebar = $('.sidebar');
+```
+
+19.2 缓存 jQuery 查询
+
+```javascript
+// bad
+function setSidebar() {
+  $('.sidebar').hide();
+
+  // ...stuff...
+
+  $('.sidebar').css({
+    'background-color': 'pink'
+  });
+}
+
+// good
+function setSidebar() {
+  const $sidebar = $('.sidebar');
+  $sidebar.hide();
+
+  // ...stuff...
+
+  $sidebar.css({
+    'background-color': 'pink'
+  });
+}
+```
+
+19.3 对有作用域的 jQuery 对象查询使用 `find`
+
+```javascript
+// bad
+$('ul', '.sidebar').hide();
+
+// bad
+$('.sidebar').find('ul').hide();
+
+// good
+$('.sidebar ul').hide();
+
+// good
+$('.sidebar > ul').hide();
+
+// good
+$sidebar.find('ul').hide();
+```
+
 
 
 
