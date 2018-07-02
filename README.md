@@ -13,7 +13,7 @@
 
 **html和css使用双引号`""` js使用单引号`''`**
 
-
+**建议每行不超过80个字符**
 
 ## Repository Name Style
 
@@ -31,7 +31,7 @@
 
 1.1 命名应具备描述性
 
-1.2 使用驼峰式命名（小驼峰）对象、函数和实例
+1.2 使用驼峰式命名（小驼峰）对象、函数（方法）名和实例
 
 ```javascript
 // bad
@@ -44,7 +44,7 @@ const thisIsMyObject = {};
 function thisIsMyFunction() {}
 ```
 
-1.3 使用帕斯卡式命名（大驼峰）构造函数或类
+1.3 使用帕斯卡式命名（大驼峰）构造函数或类，枚举（枚举中的元素使用全大写）
 
 ```javascript
 // bad
@@ -146,7 +146,7 @@ const AirbnbStyleGuide = {
 export default AirbnbStyleGuide;
 ```
 
-
+1.9 常量用大写
 
 
 
@@ -556,6 +556,51 @@ function sayHi(name) {
   return `How are you, ${name}?`;
 }
 ```
+
+5.3 编程时使用join而不是字符串连接来构建字符串，特别是IE
+
+```javascript
+var items,
+    messages,
+    length, i;
+
+messages = [{
+    state: 'success',
+    message: 'This one worked.'
+},{
+    state: 'success',
+    message: 'This one worked as well.'
+},{
+    state: 'error',
+    message: 'This one did not work.'
+}];
+
+length = messages.length;
+
+// bad
+function inbox(messages) {
+  items = '<ul>';
+
+  for (i = 0; i < length; i++) {
+    items += '<li>' + messages[i].message + '</li>';
+  }
+
+  return items + '</ul>';
+}
+
+// good
+function inbox(messages) {
+  items = [];
+
+  for (i = 0; i < length; i++) {
+    items[i] = messages[i].message;
+  }
+
+  return '<ul><li>' + items.join('</li><li>') + '</li></ul>';
+}
+```
+
+
 
 6.函数
 
@@ -1340,6 +1385,79 @@ $sidebar.find('ul').hide();
 
 
 
+
+
+
+
+
+
+
+
+
+## React Style
+
+基础规范
+
+1. 统一全部采用 ES6
+2. 组件文件名称和类名采用大驼峰命名
+3. 函数名（方法名）小驼峰命名
+
+ 命名规范
+
+- 组件名称：大驼峰
+- 属性名称：小驼峰
+- 事件处理函数：`handleSomething`
+- 自定义事件属性名称：`onSomething={this.handleSomething}`
+- key: 不能使用数组 index ，构造或使用唯一的 id
+- 组件方法名称：避免使用下划线开头的命名
+
+jsx书写规范
+
+```
+//自闭合
+// bad
+<Foo className="stuff"></Foo>
+
+// good
+<Foo className="stuff" />
+
+//属性对齐
+// bad
+<Foo superLongParam="bar"
+     anotherSuperLongParam="baz" />
+
+// good
+<Foo
+    superLongParam="bar"
+    anotherSuperLongParam="baz"
+/>
+
+// if props fit in one line then keep it on the same line
+<Foo bar="bar" />
+
+//返回
+// bad
+render() {
+  return <MyComponent className="long body" foo="bar">
+           <MyChild />
+         </MyComponent>;
+}
+
+// good
+render() {
+  return (
+    <MyComponent className="long body" foo="bar">
+      <MyChild />
+    </MyComponent>
+  );
+}
+
+// good, when single line
+render() {
+  const body = <div>hello</div>;
+  return <MyComponent>{body}</MyComponent>;
+}
+```
 
 
 
