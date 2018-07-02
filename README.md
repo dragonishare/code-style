@@ -1413,7 +1413,7 @@ $sidebar.find('ul').hide();
 
 jsx书写规范
 
-```
+```jsx
 //自闭合
 // bad
 <Foo className="stuff"></Foo>
