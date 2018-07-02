@@ -27,6 +27,240 @@
 
 
 
+## 空白缩进，逗号，分号，空格
+
+1.1 使用 2 个空格作为缩进
+
+```javascript
+// bad
+function() {
+∙∙∙∙const name;
+}
+
+// bad
+function() {
+∙const name;
+}
+
+// good
+function() {
+∙∙const name;
+}
+```
+
+1.2 在花括号前放一个空格
+
+```javascript
+// bad
+function test(){
+  console.log('test');
+}
+
+// good
+function test() {
+  console.log('test');
+}
+
+// bad
+dog.set('attr',{
+  age: '1 year',
+  breed: 'Bernese Mountain Dog',
+});
+
+// good
+dog.set('attr', {
+  age: '1 year',
+  breed: 'Bernese Mountain Dog',
+});
+```
+
+1.3 在控制语句（`if`、`while` 等）的小括号前放一个空格。在函数调用及声明中，不在函数的参数列表前加空格
+
+```javascript
+// bad
+if(isJedi) {
+  fight ();
+}
+
+// good
+if (isJedi) {
+  fight();
+}
+
+// bad
+function fight () {
+  console.log ('Swooosh!');
+}
+
+// good
+function fight() {
+  console.log('Swooosh!');
+}
+```
+
+1.4 使用空格把运算符隔开
+
+```javascript
+// bad
+const x=y+5;
+
+// good
+const x = y + 5;
+```
+
+1.5 在文件末尾插入一个空行
+
+1.6 在使用长方法链时进行缩进。使用前面的点 `.` 强调这是方法调用而不是新语句
+
+```javascript
+// bad
+$('#items').find('.selected').highlight().end().find('.open').updateCount();
+
+// bad
+$('#items').
+  find('.selected').
+    highlight().
+    end().
+  find('.open').
+    updateCount();
+
+// good
+$('#items')
+  .find('.selected')
+    .highlight()
+    .end()
+  .find('.open')
+    .updateCount();
+    
+// bad
+const leds = stage.selectAll('.led').data(data).enter().append('svg:svg').class('led', true)
+    .attr('width', (radius + margin) * 2).append('svg:g')
+    .attr('transform', 'translate(' + (radius + margin) + ',' + (radius + margin) + ')')
+    .call(tron.led);
+
+// good
+const leds = stage.selectAll('.led')
+    .data(data)
+  .enter().append('svg:svg')
+    .classed('led', true)
+    .attr('width', (radius + margin) * 2)
+  .append('svg:g')
+    .attr('transform', 'translate(' + (radius + margin) + ',' + (radius + margin) + ')')
+    .call(tron.led);
+```
+
+1.7 在块末和新语句前插入空行
+
+```javascript
+// bad
+if (foo) {
+  return bar;
+}
+return baz;
+
+// good
+if (foo) {
+  return bar;
+}
+
+return baz;
+
+// bad
+const obj = {
+  foo() {
+  },
+  bar() {
+  },
+};
+return obj;
+
+// good
+const obj = {
+  foo() {
+  },
+
+  bar() {
+  },
+};
+
+return obj;
+```
+
+1.8 行首逗号：**不需要**；增加结尾的逗号: **需要**
+
+这会让 git diffs 更干净。另外，像 babel 这样的转译器会移除结尾多余的逗号，也就是说你不必担心老旧浏览器的尾逗号问题
+
+```javascript
+// bad
+const story = [
+    once
+  , upon
+  , aTime
+];
+
+// good
+const story = [
+  once,
+  upon,
+  aTime,
+];
+
+// bad
+const hero = {
+    firstName: 'Ada'
+  , lastName: 'Lovelace'
+  , birthYear: 1815
+  , superPower: 'computers'
+};
+
+// good
+const hero = {
+  firstName: 'Ada',
+  lastName: 'Lovelace',
+  birthYear: 1815,
+  superPower: 'computers',
+};
+
+// bad - git diff without trailing comma
+const hero = {
+     firstName: 'Florence',
+-    lastName: 'Nightingale'
++    lastName: 'Nightingale',
++    inventorOf: ['coxcomb graph', 'modern nursing']
+}
+
+// good - git diff with trailing comma
+const hero = {
+     firstName: 'Florence',
+     lastName: 'Nightingale',
++    inventorOf: ['coxcomb chart', 'modern nursing'],
+}
+```
+
+1.9 **使用分号**
+
+```javascript
+// bad
+(function() {
+  const name = 'Skywalker'
+  return name
+})()
+
+// good
+(() => {
+  const name = 'Skywalker';
+  return name;
+})();
+
+// good (防止函数在两个 IIFE 合并时被当成一个参数)
+;(() => {
+  const name = 'Skywalker';
+  return name;
+})();
+```
+
+1.10 
+
 
 
 
@@ -305,6 +539,563 @@ count();  // 2
 count(3); // 3
 count();  // 3
  ```
+
+7.箭头函数
+
+7.1 当你必须使用函数表达式（或传递一个匿名函数）时，使用箭头函数符号；因为箭头函数创造了新的一个 `this` 执行环境，通常情况下都能满足你的需求，而且这样的写法更为简洁
+
+```javascript
+// bad
+[1, 2, 3].map(function (x) {
+  return x * x;
+});
+
+// good
+[1, 2, 3].map((x) => {
+  return x * x;
+});
+```
+
+7.2 如果一个函数适合用一行写出并且只有一个参数，那就把花括号、圆括号和 `return` 都省略掉。如果不是，那就不要省略
+
+```javascript
+// good
+[1, 2, 3].map(x => x * x);
+
+// good
+[1, 2, 3].reduce((total, n) => {
+  return total + n;
+}, 0);
+```
+
+8.构造器
+
+8.1 总是使用 `class`。避免直接操作 `prototype`；因为 `class` 语法更为简洁更易读
+
+```javascript
+// bad
+function Queue(contents = []) {
+  this._queue = [...contents];
+}
+Queue.prototype.pop = function() {
+  const value = this._queue[0];
+  this._queue.splice(0, 1);
+  return value;
+}
+
+
+// good
+class Queue {
+  constructor(contents = []) {
+    this._queue = [...contents];
+  }
+  pop() {
+    const value = this._queue[0];
+    this._queue.splice(0, 1);
+    return value;
+  }
+}
+
+```
+
+8.2 使用 `extends` 继承；因为 `extends` 是一个内建的原型继承方法并且不会破坏 `instanceof`
+
+9.模块
+
+9.1 总是使用模组 (`import`/`export`) 而不是其他非标准模块系统。你可以编译为你喜欢的模块系统；
+
+```javascript
+// bad
+const AirbnbStyleGuide = require('./AirbnbStyleGuide');
+module.exports = AirbnbStyleGuide.es6;
+
+// ok
+import AirbnbStyleGuide from './AirbnbStyleGuide';
+export default AirbnbStyleGuide.es6;
+
+// best
+import { es6 } from './AirbnbStyleGuide';
+export default es6;
+```
+
+9.2 不要使用通配符 import；这样能确保你只有一个默认 export
+
+```javascript
+// bad
+import * as AirbnbStyleGuide from './AirbnbStyleGuide';
+
+// good
+import AirbnbStyleGuide from './AirbnbStyleGuide';
+```
+
+9.3 不要从 import 中直接 export；虽然一行代码简洁明了，但让 import 和 export 各司其职让事情能保持一致
+
+```javascript
+// bad
+// filename es6.js
+export { es6 as default } from './airbnbStyleGuide';
+
+// good
+// filename es6.js
+import { es6 } from './AirbnbStyleGuide';
+export default es6;
+```
+
+10.不要使用 iterators。使用高阶函数例如 `map()` 和 `reduce()` 替代 `for-of`
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+// bad
+let sum = 0;
+for (let num of numbers) {
+  sum += num;
+}
+
+sum === 15;
+
+// good
+let sum = 0;
+numbers.forEach((num) => sum += num);
+sum === 15;
+
+// best (use the functional force)
+const sum = numbers.reduce((total, num) => total + num, 0);
+sum === 15;
+```
+
+11.属性
+
+11.1 使用 `.` 来访问对象的属性
+
+```javascript
+const luke = {
+  jedi: true,
+  age: 28,
+};
+
+// bad
+const isJedi = luke['jedi'];
+
+// good
+const isJedi = luke.jedi;
+```
+
+11.2 当通过变量访问属性时使用中括号 `[]`
+
+```javascript
+const luke = {
+  jedi: true,
+  age: 28,
+};
+
+function getProp(prop) {
+  return luke[prop];
+}
+
+const isJedi = getProp('jedi');
+```
+
+12.变量
+
+12.1 一直使用 `const` 来声明变量；使用 `const` 声明每一个变量；这样增加新变量将变的更加容易，而且你永远不用再担心调换错 `;` 跟 `,`
+
+```javascript
+// bad
+const items = getItems(),
+    goSportsTeam = true,
+    dragonball = 'z';
+
+// bad
+// (compare to above, and try to spot the mistake)
+const items = getItems(),
+    goSportsTeam = true;
+    dragonball = 'z';
+
+// good
+const items = getItems();
+const goSportsTeam = true;
+const dragonball = 'z';
+```
+
+12.2 将所有的 `const` 和 `let` 分组；当你需要把已赋值变量赋值给未赋值变量时非常有用
+
+```javascript
+// bad
+let i, len, dragonball,
+    items = getItems(),
+    goSportsTeam = true;
+
+// bad
+let i;
+const items = getItems();
+let dragonball;
+const goSportsTeam = true;
+let len;
+
+// good
+const goSportsTeam = true;
+const items = getItems();
+let dragonball;
+let i;
+let length;
+```
+
+12.3 在你需要的地方给变量赋值，但请把它们放在一个合理的位置；因为`let` 和 `const` 是块级作用域而不是函数作用域
+
+```javascript
+// bad - unnecessary function call
+function(hasName) {
+  const name = getName();
+
+  if (!hasName) {
+    return false;
+  }
+
+  this.setFirstName(name);
+
+  return true;
+}
+
+// good
+function(hasName) {
+  if (!hasName) {
+    return false;
+  }
+
+  const name = getName();
+  this.setFirstName(name);
+
+  return true;
+}
+```
+
+13.提升Hoisting
+
+ 13.1 `var` 声明会被提升至该作用域的顶部，但它们赋值不会提升。`let` 和 `const` 声明不会被提示
+
+```javascript
+// 由于变量提升的原因，
+// 在引用变量后再声明变量是可以运行的。
+// 注：变量的赋值 `true` 不会被提升。
+function example() {
+  console.log(declaredButNotAssigned); // => undefined
+  var declaredButNotAssigned = true;
+}
+
+// 编译器会把函数声明提升到作用域的顶层，
+// 这意味着我们的例子可以改写成这样：
+function example() {
+  let declaredButNotAssigned;
+  console.log(declaredButNotAssigned); // => undefined
+  declaredButNotAssigned = true;
+}
+
+// 使用 const 和 let
+function example() {
+  console.log(declaredButNotAssigned); // => throws a ReferenceError
+  console.log(typeof declaredButNotAssigned); // => throws a ReferenceError
+  const declaredButNotAssigned = true;
+}
+```
+
+13.2 匿名函数表达式的变量名会被提升，但函数内容并不会
+
+```javascript
+function example() {
+  console.log(anonymous); // => undefined
+
+  anonymous(); // => TypeError anonymous is not a function
+
+  var anonymous = function() {
+    console.log('anonymous function expression');
+  };
+}
+```
+
+13.3 命名的函数表达式的变量名会被提升，但函数名和函数函数内容并不会
+
+```javascript
+function example() {
+  console.log(named); // => undefined
+
+  named(); // => TypeError named is not a function
+
+  superPower(); // => ReferenceError superPower is not defined
+
+  var named = function superPower() {
+    console.log('Flying');
+  };
+}
+
+// the same is true when the function name
+// is the same as the variable name.
+function example() {
+  console.log(named); // => undefined
+
+  named(); // => TypeError named is not a function
+
+  var named = function named() {
+    console.log('named');
+  }
+}
+```
+
+13.4 函数声明的名称和函数体都会被提升
+
+```
+function example() {
+  console.log(superPower);
+  superPower(); // => Flying
+
+  function superPower() {
+    console.log('Flying');
+  }
+}
+```
+
+14.比较运算符 & 等号
+
+14.1 优先使用 `===` 和 `!==` 而不是 `==` 和 `!=`
+
+14.2 条件表达式例如 `if` 语句通过抽象方法 `ToBoolean` 强制计算它们的表达式并且总是遵守下面的规则：
+
+- **对象** 被计算为 **true**
+- **Undefined** 被计算为 **false**
+- **Null** 被计算为 **false**
+- **布尔值** 被计算为 **布尔的值**
+- **数字** 如果是 **+0、-0、或 NaN** 被计算为 **false**, 否则为 **true**
+- **字符串** 如果是空字符串 `''` 被计算为 **false**，否则为 **true**
+
+14.3 使用简写
+
+```javascript
+// bad
+if (name !== '') {
+  // ...stuff...
+}
+
+// good
+if (name) {
+  // ...stuff...
+}
+
+// bad
+if (collection.length > 0) {
+  // ...stuff...
+}
+
+// good
+if (collection.length) {
+  // ...stuff...
+}
+
+```
+
+15.代码块
+
+15.1 使用大括号包裹所有的多行代码块
+
+```javascript
+// bad
+if (test)
+  return false;
+
+// good
+if (test) return false;
+
+// good
+if (test) {
+  return false;
+}
+
+// bad
+function() { return false; }
+
+// good
+function() {
+  return false;
+}
+```
+
+15.2 如果通过 `if` 和 `else` 使用多行代码块，把 `else` 放在 `if` 代码块关闭括号的同一行
+
+```javascript
+// bad
+if (test) {
+  thing1();
+  thing2();
+}
+else {
+  thing3();
+}
+
+// good
+if (test) {
+  thing1();
+  thing2();
+} else {
+  thing3();
+}
+```
+
+16.注释
+
+16.1 使用 `/** ... */` 作为多行注释。包含描述、指定所有参数和返回值的类型和值
+
+```javascript
+// bad
+// make() returns a new element
+// based on the passed in tag name
+//
+// @param {String} tag
+// @return {Element} element
+function make(tag) {
+
+  // ...stuff...
+
+  return element;
+}
+
+// good
+/**
+ * make() returns a new element
+ * based on the passed in tag name
+ *
+ * @param {String} tag
+ * @return {Element} element
+ */
+function make(tag) {
+
+  // ...stuff...
+
+  return element;
+}
+```
+
+16.2 使用 `//` 作为单行注释。在评论对象上面另起一行使用单行注释。在注释前插入空行
+
+```javascript
+// bad
+const active = true;  // is current tab
+
+// good
+// is current tab
+const active = true;
+
+// bad
+function getType() {
+  console.log('fetching type...');
+  // set the default type to 'no type'
+  const type = this._type || 'no type';
+
+  return type;
+}
+
+// good
+function getType() {
+  console.log('fetching type...');
+
+  // set the default type to 'no type'
+  const type = this._type || 'no type';
+
+  return type;
+}
+```
+
+16.3 给注释增加 `FIXME` 或 `TODO` 的前缀可以帮助其他开发者快速了解这是一个需要复查的问题，或是给需要实现的功能提供一个解决方式。这将有别于常见的注释，因为它们是可操作的。使用 `FIXME -- need to figure this out` 或者 `TODO -- need to implement`
+
+* 使用 `// FIXME`: 标注问题
+
+  ```javascript
+  class Calculator {
+    constructor() {
+      // FIXME: shouldn't use a global here
+      total = 0;
+    }
+  }
+  ```
+
+  
+
+* 使用 `// TODO`: 标注问题的解决方式
+
+  ```javascript
+  class Calculator {
+    constructor() {
+      // TODO: total should be configurable by an options param
+      this.total = 0;
+    }
+  }
+  ```
+
+17.类型转换
+
+17.1 字符串
+
+```javascript
+//  => this.reviewScore = 9;
+
+// bad
+const totalScore = this.reviewScore + '';
+
+// good
+const totalScore = String(this.reviewScore);
+```
+
+17.2 对数字使用 `parseInt` 转换，并带上类型转换的基数
+
+```javascript
+const inputValue = '4';
+
+// bad
+const val = new Number(inputValue);
+
+// bad
+const val = +inputValue;
+
+// bad
+const val = inputValue >> 0;
+
+// bad
+const val = parseInt(inputValue);
+
+// good
+const val = Number(inputValue);
+
+// good
+const val = parseInt(inputValue, 10);
+```
+
+17.3 如果因为某些原因 parseInt 成为你所做的事的瓶颈而需要使用位操作解决性能问题时，留个注释说清楚原因和你的目的
+
+```javascript
+// good
+/**
+ * 使用 parseInt 导致我的程序变慢，
+ * 改成使用位操作转换数字快多了。
+ */
+const val = inputValue >> 0;
+```
+
+17.4 布尔
+
+```javascript
+const age = 0;
+
+// bad
+const hasAge = new Boolean(age);
+
+// good
+const hasAge = Boolean(age);
+
+// good
+const hasAge = !!age;
+```
+
+
+
+
 
 
 
