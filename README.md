@@ -1405,11 +1405,52 @@ $sidebar.find('ul').hide();
  命名规范
 
 - 组件名称：大驼峰
+
 - 属性名称：小驼峰
+
 - 事件处理函数：`handleSomething`
+
 - 自定义事件属性名称：`onSomething={this.handleSomething}`
+
 - key: 不能使用数组 index ，构造或使用唯一的 id
+
 - 组件方法名称：避免使用下划线开头的命名
+
+  
+
+  **文件名**: 文件名使用帕斯卡命名. 如, ReservationCard.jsx
+  **引用命名**: React模块名使用帕斯卡命名，实例使用骆驼式命名
+
+  ```jsx
+  // bad
+  import reservationCard from './ReservationCard';
+  
+  // good
+  import ReservationCard from './ReservationCard';
+  
+  // bad
+  const ReservationItem = <ReservationCard />;
+  
+  // good
+  const reservationItem = <ReservationCard />;
+  ```
+
+  **模块命名**: 模块使用当前文件名一样的名称. 比如 `ReservationCard.jsx` 应该包含名为 `ReservationCard`的模块. 但是，如果整个文件夹是一个模块，使用 `index.js`作为入口文件，然后直接使用 `index.js` 或者文件夹名作为模块的名称
+
+  ```jsx
+  // bad
+  import Footer from './Footer/Footer';
+  
+  // bad
+  import Footer from './Footer/index';
+  
+  // good
+  import Footer from './Footer';
+  ```
+
+
+
+
 
 jsx书写规范
 
@@ -1459,6 +1500,53 @@ render() {
 }
 ```
 
+* 对于JSX属性值总是使用双引号(`"`), 其他均使用单引号(`'`)；因为HTML属性也是用双引号, 因此JSX的属性也遵循此约定
+
+```jsx
+// bad
+<Foo bar='bar' />
+
+// good
+<Foo bar="bar" />
+
+// bad
+<Foo style={{ left: "20px" }} />
+
+// good
+<Foo style={{ left: '20px' }} />
+```
+
+* 总是在自动关闭的标签前加一个空格，正常情况下也不需要换行
+
+```jsx
+// bad
+<Foo/>
+
+// very bad
+<Foo                 />
+
+// bad
+<Foo
+ />
+
+// good
+<Foo />
+```
+
+* 不要在JSX `{}` 引用括号里两边加空格，通过eslint实现
+
+```jsx
+// bad
+<Foo bar={ baz } />
+
+// good
+<Foo bar={baz} />
+```
+
+函数Methods
+
+* 当在 `render()` 里使用事件处理方法时，提前在构造函数里把 `this` 绑定上去；因为在每次 `render` 过程中， 再调用 `bind` 都会新建一个新的函数，浪费资源
+
 
 
 
@@ -1468,6 +1556,33 @@ render() {
 
 
 ## CSS Style
+
+* 样式属性后（必须）加;
+
+* class命名中（禁止）出现大写字母，（必须）采用短线`-`对class中的字母分隔
+
+* 选择器与 { 之前（必须）要有空格；属性名的 : 后（必须）要有空格；属性名的 : 前（禁止）加空格
+
+* 多选择器规则之间（必须）换行
+
+* （禁止）向0后添加单位
+
+  
+
+```css
+/* 针对ie的hack */ 
+selector { 
+    property: value; /* 所有浏览器 */ 
+    property: value\9; /* 所有IE浏览器 */ 
+    property: value\0; /* IE8 */ 
+    +property: value; /* IE7 */ 
+    _property: value; /* IE6 */ 
+    *property: value; /* IE6-7 */ 
+}
+
+//链接的样式顺序
+a:link -> a:visited -> a:hover -> a:active
+```
 
 
 
