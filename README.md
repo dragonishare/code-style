@@ -151,7 +151,7 @@ const AirbnbStyleGuide = {
 export default AirbnbStyleGuide;
 ```
 
-1.9 常量用大写
+1.9 常量用大写字母，下划线用以分割单词
 
 
 
@@ -1413,7 +1413,7 @@ $sidebar.find('ul').hide();
 
 - 属性名称：小驼峰
 
-- 事件处理函数：`handleSomething`
+- 事件处理函数：`handleSomething`; **使用handle前缀**
 
 - 自定义事件属性名称：`onSomething={this.handleSomething}`
 
