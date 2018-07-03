@@ -13,6 +13,8 @@
 
 **html和css使用双引号`""` js使用单引号`''`**
 
+**react官方缩进2个空格**
+
 **建议每行不超过80个字符**
 
 ## Repository Name Style
@@ -23,7 +25,10 @@
 
 **建议仓库名单词小写组合，或者短线`-`**
 
+## 参考链接
 
+* 目前此文档主要参考了airbnb，Google，GitHub，standard
+* https://guide.aotu.io/docs/html/code.html
 
 ## 命名规则
 
