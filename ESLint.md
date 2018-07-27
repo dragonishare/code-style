@@ -25,3 +25,5 @@ ESlint共支持6种格式的配置文件，其使用的优先级和说明如下�
 ## 参考地址
 
 * [前端代码检查](http://imweb.io/topic/59a3fd4a79c5294e26eb6001)
+* [Add ESLint & Prettier to VS Code for a Create React App](https://www.youtube.com/watch?v=bfyI9yl3qfE)
+
