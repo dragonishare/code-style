@@ -17,6 +17,15 @@
 
 **建议每行不超过80个字符**
 
+> ## react 命名规范
+- 文件及文件夹**小写字母命名**
+- 组件文件夹、组件文件名与组件名保持一致，并且**大驼峰命名( 帕斯卡命名 )**
+- 类名、构造函数名及 import 引用名，**大驼峰命名( 帕斯卡命名 )**
+- js 函数命名、jsx 属性命名，**小驼峰命名**
+- css 类名，**小写字母，多个字母用连接符`-` 隔开**
+- **jsx 属性双引号，其他单引号**
+
+
 ## Repository Name Style
 
 * **特别简易和容易区分**的直接**小写字母**，单词组合或者缩写组合，比如jsdemos，jstutorial
@@ -1607,3 +1616,4 @@ a:link -> a:visited -> a:hover -> a:active
 
 
 ### [What JavaScript code style is the most popular ](https://hackernoon.com/what-javascript-code-style-is-the-most-popular-5a3f5bec1f6f)
+
