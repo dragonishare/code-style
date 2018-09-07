@@ -17,4 +17,4 @@ Standard: 不使用分号
 
 Many open source projects have very basic linting: not more than 10 rules.
 
-很多会使用ESLint
+很多会使用ESLint 
